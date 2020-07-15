@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/standard_padding">
+
+        <TextView
+            android:id="@+id/tv_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_direction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:textSize="@dimen/subtitle_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_message_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/service_status"
+            android:textSize="@dimen/message_title_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:textSize="@dimen/message_size" />
+
+        <TextView
+            android:id="@+id/tv_last_updated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/double_margin"
+            android:text="@string/trams_title"
+            android:textSize="@dimen/small_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_trams_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trams_title"
+            android:textSize="@dimen/message_title_size"
+            android:textStyle="bold" />
+
+</LinearLayout>
