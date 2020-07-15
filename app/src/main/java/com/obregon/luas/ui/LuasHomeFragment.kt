@@ -3,6 +3,7 @@ package com.obregon.luas.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
@@ -36,6 +37,7 @@ class LuasHomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         showProgress()
         viewModel.uiData.observeForever {layout(it)}
+        viewModel.errorData.observeForever{showError(it)}
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -55,17 +57,22 @@ class LuasHomeFragment : Fragment() {
         viewModel.loadData()
     }
 
+    private fun showError(error:String){
+        hideProgress()
+        Toast.makeText(this.context,error,Toast.LENGTH_LONG).show()
+    }
+
     private lateinit var tramDataAdapter:TramDataAdapter
 
     private fun layout(uiData: UiData){
 
         Timber.d(uiData.toString())
-      /*  tv_stop.text=uiData.stationName
+        tv_stop.text=uiData.stationName
         tv_direction.text=uiData.direction
         tv_message.text=uiData.statusMessage
         tv_last_updated.text=uiData.lastUpdated
 
-        header.visibility=View.VISIBLE */
+        header_card.visibility=View.VISIBLE
 
         tram_list.apply{
             layoutManager= LinearLayoutManager(this.context)
@@ -73,6 +80,7 @@ class LuasHomeFragment : Fragment() {
             adapter=tramDataAdapter
         }
 
+        tram_card.visibility=View.VISIBLE
         hideProgress()
     }
 
@@ -82,6 +90,6 @@ class LuasHomeFragment : Fragment() {
     }
 
     private fun hideProgress(){
-        progressBar.visibility=View.INVISIBLE
+       progressBar.visibility=View.INVISIBLE
     }
 }

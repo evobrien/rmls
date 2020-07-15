@@ -6,10 +6,10 @@
     <dimen name="double_margin">16dp</dimen>
 
     <dimen name="title_size">26sp</dimen>
-    <dimen name="subtitle_size">20sp</dimen>
+    <dimen name="subtitle_size">22sp</dimen>
     <dimen name="message_title_size">18sp</dimen>
     <dimen name="message_size">16sp</dimen>
-    <dimen name="standard_text_size">14sp</dimen>
+    <dimen name="standard_text_size">16sp</dimen>
     <dimen name="small_text_size">12sp</dimen>
     <dimen name="very_small_text_size">10sp</dimen>
 </resources>

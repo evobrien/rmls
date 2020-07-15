@@ -8,9 +8,12 @@ import com.obregon.luas.data.response.StopInfo
 import kotlinx.coroutines.launch
 import java.io.IOException
 import java.lang.Exception
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.HashMap
+import kotlin.collections.HashSet
 
 interface TimeHelper{
     fun isMorning():Boolean
@@ -30,19 +33,26 @@ class TimeHelperImpl @Inject constructor():TimeHelper {
 data class StopFilter(val stopName:String,val direction:String)
 
 class StopCodeProvider @Inject constructor(private val timeHelper: TimeHelper){
+    private val MAR:String ="MAR"
+    private val STI:String ="STI"
+
+    private val mapStopFilter:HashMap<String,StopFilter> = hashMapOf(MAR to StopFilter(MAR,"Outbound"),
+        STI to StopFilter(STI,"Inbound"))
+
     fun getStopCode():StopFilter{
         if(timeHelper.isMorning()){
-          return StopFilter("CON","Outbound")
+          return mapStopFilter[MAR] as StopFilter
         }
-        return StopFilter("STI","Inbound")
+        return mapStopFilter[STI] as StopFilter
     }
 }
 data class Tram(val station:String,val dueMins:String,val rowType: RowType )
 data class UiData constructor(val stationName:String, val direction:String, val
                               statusMessage:String, val lastUpdated:String, val trams:List<Tram>)
-enum class RowType{
-    TYPE_HEADER,TYPE_TITLE,TYPE_ROW
 
+enum class RowType ( val type:Int){
+    TYPE_TITLE(0),
+    TYPE_ROW(1)
 }
 
 class LuasHomeViewModel @ViewModelInject constructor(private val luasRepository: LuasRepository,
@@ -51,6 +61,7 @@ class LuasHomeViewModel @ViewModelInject constructor(private val luasRepository:
     private val _error = MutableLiveData<String>()
     private val _uiData = MutableLiveData<UiData>()
     val uiData:LiveData<UiData> = _uiData
+    val errorData:LiveData<String> = _error
 
     init {
         loadData()
@@ -60,7 +71,7 @@ class LuasHomeViewModel @ViewModelInject constructor(private val luasRepository:
         viewModelScope.launch {
             val stopFilter= stopCodeProvider.getStopCode()
             when(val queryResult=luasRepository.getStationDetails(stopFilter.stopName)){
-                is QueryResult.Success -> _uiData.value=processResult(queryResult.stopInfo,stopFilter)
+                is QueryResult.Success -> _uiData.value=processResult(queryResult.stopInfo)
                 is QueryResult.Failure -> processError(queryResult.exception)
             }
         }
@@ -73,7 +84,7 @@ class LuasHomeViewModel @ViewModelInject constructor(private val luasRepository:
         }
     }
 
-    private fun processResult(result: StopInfo,stopFilter:StopFilter):UiData{
+    private fun processResult(result: StopInfo):UiData{
 
         val filtered=result.direction?.filter { it.name.equals("Outbound") }
         val trams=filtered?.get(0)?.tram
@@ -97,7 +108,10 @@ class LuasHomeViewModel @ViewModelInject constructor(private val luasRepository:
                 RowType.TYPE_ROW))
         }
 
-        val lastUpdated="(Last updated at: " + result.created as String + ")"
+
+        val date = LocalDateTime.parse(result.created).toLocalTime()
+        val lastUpdated= "(Last updated at: $date)"
+
         val directionSubtitle= "Direction: " + direction as String
         val serviceStatus= result.message as String
 
