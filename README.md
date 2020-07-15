@@ -1,5 +1,7 @@
 # Luas App for RIM
 
+![Alt text](app_image.jpg?raw=true "home screen")
+
 You can build from Develop or Master (the code is identical)
 
 The three use cases are satisfied:
