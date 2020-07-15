@@ -1,10 +1,8 @@
-package com.obregon.luas.ui
+package com.obregon.luas.ui.HomeScreen
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Toast
-import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,9 +14,9 @@ import timber.log.Timber
 
 
 @AndroidEntryPoint
-class LuasHomeFragment : Fragment() {
+class HomeScreenFragment : Fragment() {
 
-    private val viewModel:LuasHomeViewModel  by viewModels()
+    private val screenViewModel: HomeScreenViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +34,8 @@ class LuasHomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         showProgress()
-        viewModel.uiData.observeForever {layout(it)}
-        viewModel.errorData.observeForever{showError(it)}
+        screenViewModel.uiData.observeForever {layout(it)}
+        screenViewModel.errorData.observeForever{showError(it)}
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -54,7 +52,7 @@ class LuasHomeFragment : Fragment() {
 
     private fun reload(){
         showProgress()
-        viewModel.loadData()
+        screenViewModel.loadData()
     }
 
     private fun showError(error:String){
@@ -62,7 +60,7 @@ class LuasHomeFragment : Fragment() {
         Toast.makeText(this.context,error,Toast.LENGTH_LONG).show()
     }
 
-    private lateinit var tramDataAdapter:TramDataAdapter
+    private lateinit var tramDataAdapter: TramDataAdapter
 
     private fun layout(uiData: UiData){
 
@@ -76,7 +74,8 @@ class LuasHomeFragment : Fragment() {
 
         tram_list.apply{
             layoutManager= LinearLayoutManager(this.context)
-            tramDataAdapter= TramDataAdapter(trams = uiData.trams)
+            tramDataAdapter=
+                TramDataAdapter(uiData.tramData)
             adapter=tramDataAdapter
         }
 

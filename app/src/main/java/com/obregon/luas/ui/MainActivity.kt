@@ -1,8 +1,9 @@
-package com.obregon.luas
+package com.obregon.luas.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.obregon.luas.ui.LuasHomeFragment
+import com.obregon.luas.R
+import com.obregon.luas.ui.HomeScreen.HomeScreenFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,8 +16,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setInitialLayout(){
         this.supportFragmentManager.beginTransaction()
-            .replace(R.id.content, LuasHomeFragment(),LuasHomeFragment::class.simpleName)
-            .addToBackStack(LuasHomeFragment::class.simpleName)
+            .replace(
+                R.id.content,
+                HomeScreenFragment(),
+                HomeScreenFragment::class.simpleName)
+            .addToBackStack(HomeScreenFragment::class.simpleName)
             .commit()
     }
 }

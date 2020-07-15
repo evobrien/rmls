@@ -1,11 +1,9 @@
 package com.obregon.luas.data.repository
 
-import android.util.Log
 import com.obregon.luas.data.QueryResult
 import com.obregon.luas.data.network.LuasApi
 import timber.log.Timber
 import javax.inject.Inject
-
 
 
 interface LuasRepository{

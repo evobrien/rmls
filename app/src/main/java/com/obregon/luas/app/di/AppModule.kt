@@ -6,8 +6,10 @@ import android.content.Context
 import com.obregon.luas.data.network.LuasApi
 import com.obregon.luas.data.repository.LuasRepository
 import com.obregon.luas.data.repository.LuasRepositoryImpl
-import com.obregon.luas.ui.TimeHelper
-import com.obregon.luas.ui.TimeHelperImpl
+import com.obregon.luas.ui.HomeScreen.TimeHelper
+import com.obregon.luas.ui.HomeScreen.TimeHelperImpl
+import com.obregon.luas.ui.HomeScreen.TimeProvider
+import com.obregon.luas.ui.HomeScreen.TimeProviderImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -64,7 +66,7 @@ object AppModule {
             .addInterceptor(interceptor)
             .build()
 
-
+    @Singleton
     @Provides
     fun provideInterceptor(): Interceptor {
         return  HttpLoggingInterceptor().apply {
@@ -72,7 +74,7 @@ object AppModule {
         }
     }
 
-
+    @Singleton
     @Provides
     fun provideCache(@ApplicationContext context: Context): Cache = Cache(context.cacheDir, 5 * 1024 * 1024)
 
@@ -80,6 +82,12 @@ object AppModule {
     @Provides
     fun providesTimeHelper(timeHelperImpl: TimeHelperImpl): TimeHelper {
         return timeHelperImpl
+    }
+
+    @Singleton
+    @Provides
+    fun providesTimeProvider(timeProviderImpl: TimeProviderImpl): TimeProvider {
+        return timeProviderImpl
     }
 
 }
