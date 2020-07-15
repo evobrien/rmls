@@ -16,7 +16,7 @@ When I tap on the refresh button
 Then the forecast data should be updated
 
 The refresh button is located in the top right hand corner of the action bar
-The app
+The app works in portrait and landscape.
 
 Notes:
 1) Design: Simple MVVM design with a repository layer linked directly to the network
