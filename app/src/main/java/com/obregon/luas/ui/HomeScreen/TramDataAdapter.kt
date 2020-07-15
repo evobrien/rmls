@@ -28,7 +28,7 @@ class TramDataAdapter(val tramData:List<TramData>):RecyclerView.Adapter<Recycler
     }
 
     override fun getItemCount(): Int {
-        return tramData.size-1
+        return tramData.size
     }
 
     override fun onBindViewHolder(viewHolder:RecyclerView.ViewHolder, position: Int) {
