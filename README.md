@@ -26,7 +26,7 @@ The dependencies are included in one app module for simplicity as there are not 
 4)Unit tests are included for the view model and it's backing components
 
 Possible Improvements:
-1)Integration tests could be added - I didn't add them due to time limitations
-2)Data processing could be improved in the viewmodel to deal more robustly with errors. Currently it is fairly simple.
+1) Integration tests could be added - I didn't add them due to time limitations
+2) Data processing could be improved in the viewmodel to deal more robustly with errors. Currently it is fairly simple.
 3) A database layer using Room & Sqlite could be added possibly. I didn't add it here because I thought it would be redundant as the data really needs to be up to date all the time
 4) Selection of different stations from a dropdown built into the action bar. This was outside the scope of the project however
