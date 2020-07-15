@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.content,
                 HomeScreenFragment(),
                 HomeScreenFragment::class.simpleName)
-            .addToBackStack(HomeScreenFragment::class.simpleName)
             .commit()
     }
 }
