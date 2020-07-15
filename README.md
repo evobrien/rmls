@@ -1,6 +1,6 @@
 # Luas App for RIM
 
-![Alt text](app_image.jpg?raw=true "home screen")
+<img src="app_image.png?" width="400" height="700">
 
 You can build from Develop or Master (the code is identical)
 
