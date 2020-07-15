@@ -1,5 +1,6 @@
 # Luas App for RIM
 
+You can build from Develop or Master (the code is identical)
 
 The three use cases are satisfied:
 
